@@ -1,6 +1,9 @@
 var clickedElementNAR = null;
-var zapStash = [];
+var nukeStash = [];
 
+/**
+ * Mousedown listener, save the DOM object under the mouse click to be able to use it later.
+ */
 document.addEventListener("mousedown", function (event) {
     // only right click
     if (event.button === 2) {
@@ -8,15 +11,19 @@ document.addEventListener("mousedown", function (event) {
     }
 }, true);
 
+/**
+ * Message listener. Takes messages from background.js and removes the object clicked or restores the top object from
+ * the nuke stash.
+ */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request === "nukeThisObject") {
-        zapStash.push({
+        nukeStash.push({
             "element": clickedElementNAR,
             "displayStyle": clickedElementNAR.style.display
         });
         clickedElementNAR.style.display = "none";
     } else if (request === "unnukeObject") {
-        var unnukeElement = zapStash.pop();
+        var unnukeElement = nukeStash.pop();
         if (typeof unnukeElement !== 'undefined') {
             unnukeElement.element.style.display = unnukeElement.displayStyle;
         }
