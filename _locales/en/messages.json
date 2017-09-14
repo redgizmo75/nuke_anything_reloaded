@@ -1,0 +1,16 @@
+{
+  "appName": {
+    "message": "Nuke anything reloaded",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "appDesc": {
+    "message": "Allows you to hide almost anything via context menu.",
+    "description": "The description of the application, displayed in the web store."
+  },
+  "menuitem_caption_nuke": {
+    "message": "Remove this object"
+  } ,
+  "menuitem_caption_unnuke": {
+    "message": "Undo last remove"
+  }
+}

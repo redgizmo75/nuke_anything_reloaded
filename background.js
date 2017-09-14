@@ -8,5 +8,5 @@ function unnukeOnClick(info, tab) {
 }
 
 // Create context menu items
-chrome.contextMenus.create({"title": "Remove this object", "contexts": ["all"], "onclick": nukeOnClick});
-chrome.contextMenus.create({"title": "Undo last remove", "contexts": ["all"], "onclick": unnukeOnClick});
+chrome.contextMenus.create({"title": chrome.i18n.getMessage("menuitem_caption_nuke"), "contexts": ["all"], "onclick": nukeOnClick});
+chrome.contextMenus.create({"title": chrome.i18n.getMessage("menuitem_caption_unnuke"), "contexts": ["all"], "onclick": unnukeOnClick});

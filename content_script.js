@@ -10,12 +10,15 @@ document.addEventListener("mousedown", function (event) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request === "nukeThisObject") {
-        zapStash.push(clickedElementNAR);
+        zapStash.push({
+            "element": clickedElementNAR,
+            "displayStyle": clickedElementNAR.style.display
+        });
         clickedElementNAR.style.display = "none";
     } else if (request === "unnukeObject") {
         var unnukeElement = zapStash.pop();
         if (typeof unnukeElement !== 'undefined') {
-            unnukeElement.style.display = "";
+            unnukeElement.element.style.display = unnukeElement.displayStyle;
         }
     }
 });
