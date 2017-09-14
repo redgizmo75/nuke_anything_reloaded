@@ -1,12 +1,12 @@
 
-function zapOnClick(info, tab) {
-    chrome.tabs.sendMessage(tab.id, "zapEm", null);
+function nukeOnClick(info, tab) {
+    chrome.tabs.sendMessage(tab.id, "nukeThisObject", null);
 }
 
-function unzapOnClick(info, tab) {
-    chrome.tabs.sendMessage(tab.id, "unzapEm", null);
+function unnukeOnClick(info, tab) {
+    chrome.tabs.sendMessage(tab.id, "unnukeObject", null);
 }
 
 // Create context menu items
-chrome.contextMenus.create({"title": "Remove this object", "contexts": ["all"], "onclick": zapOnClick});
-chrome.contextMenus.create({"title": "Undo last remove", "contexts": ["all"], "onclick": unzapOnClick});
+chrome.contextMenus.create({"title": "Remove this object", "contexts": ["all"], "onclick": nukeOnClick});
+chrome.contextMenus.create({"title": "Undo last remove", "contexts": ["all"], "onclick": unnukeOnClick});

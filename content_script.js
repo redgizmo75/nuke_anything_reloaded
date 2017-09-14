@@ -1,23 +1,21 @@
-var clickedElementZE = null;
+var clickedElementNAR = null;
 var zapStash = [];
 
 document.addEventListener("mousedown", function (event) {
     // only right click
     if (event.button === 2) {
-        clickedElementZE = event.target;
+        clickedElementNAR = event.target;
     }
 }, true);
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request === "zapEm") {
-        zapStash.push(clickedElementZE);
-        clickedElementZE.style.display = "none";
-    } else if (request === "unzapEm") {
-        var unzapElement = zapStash.pop();
-        if (typeof unzapElement !== 'undefined') {
-            unzapElement.style.display = "";
+    if (request === "nukeThisObject") {
+        zapStash.push(clickedElementNAR);
+        clickedElementNAR.style.display = "none";
+    } else if (request === "unnukeObject") {
+        var unnukeElement = zapStash.pop();
+        if (typeof unnukeElement !== 'undefined') {
+            unnukeElement.style.display = "";
         }
     }
 });
-
-console.log("content script active");
