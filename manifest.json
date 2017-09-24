@@ -17,7 +17,8 @@
     {
       "matches": ["*://*/*",
       "file:///*/*"],
-      "js": ["content_script.js"]
+      "js": ["content_script.js"],
+      "css": ["content_styles.css"]
     }
   ],
   "background": {

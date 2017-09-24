@@ -27,5 +27,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (typeof unnukeElement !== 'undefined') {
             unnukeElement.element.style.display = unnukeElement.displayStyle;
         }
+    } else if (request === "highlightObject") {
+        clickedElementNAR.classList.remove("blink");
+        clickedElementNAR.offsetWidth;
+        clickedElementNAR.classList.add("blink");
     }
 });

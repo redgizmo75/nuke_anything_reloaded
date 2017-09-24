@@ -1,0 +1,8 @@
+@keyframes blinking {
+    from { outline: none; }
+    to { outline: 3px solid red; }
+}
+
+.blink { animation: blinking;
+    animation-iteration-count: 5;
+    animation-duration: 0.3s }
