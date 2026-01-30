@@ -1,0 +1,19 @@
+project: Nuke Anything Reloaded
+
+context:
+  - project_summary.md
+  - manifest.json
+  - background.js
+  - content_script.js
+
+ignore:
+  - node_modules/**
+  - .git/**
+  - package-lock.json
+
+instructions:
+  - "Always use Manifest V3 for Chrome Extension development."
+  - "Use modern JavaScript (ES6+) with const/let/arrow functions."
+  - "Avoid external dependencies unless necessary (keep it lightweight)."
+  - "Ensure changes are compatible with the existing Service Worker architecture."
+  - "When adding features, consider updating the project_summary.md roadmap."
