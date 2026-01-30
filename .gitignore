@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Testing
+coverage/
+
+# Production
+build/
+dist/
+
+# System Files
+.DS_Store
+Thumbs.db
+*.log
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OpenSpec - Keep .agent/ but ignore simple local configs if any
+# (Typically .agent should be committed to share workflows)

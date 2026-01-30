@@ -1,0 +1,24 @@
+{
+  "name": "nuke_anything_reloaded",
+  "version": "1.0.0",
+  "description": "Chrome extension that allows you to hide almost anything via context menu.",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redgizmo75/nuke_anything_reloaded.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/redgizmo75/nuke_anything_reloaded/issues"
+  },
+  "homepage": "https://github.com/redgizmo75/nuke_anything_reloaded#readme",
+  "devDependencies": {
+    "@fission-ai/openspec": "^1.1.0"
+  }
+}
