@@ -1,5 +1,5 @@
-var clickedElementNAR = null;
-var nukeStash = [];
+let clickedElementNAR = null;
+const nukeStash = [];
 
 /**
  * Mousedown listener, save the DOM object under the mouse click to be able to use it later.
@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         });
         clickedElementNAR.style.display = "none";
     } else if (request === "unnukeObject") {
-        var unnukeElement = nukeStash.pop();
+        const unnukeElement = nukeStash.pop();
         if (typeof unnukeElement !== 'undefined') {
             unnukeElement.element.style.display = unnukeElement.displayStyle;
         }

@@ -1,21 +1,22 @@
-/**
- * onClick listener to send message to the content script to remove the current object.
- * @param info
- * @param tab
- */
-function nukeOnClick(info, tab) {
-    chrome.tabs.sendMessage(tab.id, "nukeThisObject", null);
-}
+// Create context menu items on installation
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.contextMenus.create({
+        "id": "nuke",
+        "title": chrome.i18n.getMessage("menuitem_caption_nuke"),
+        "contexts": ["all"]
+    });
+    chrome.contextMenus.create({
+        "id": "unnuke",
+        "title": chrome.i18n.getMessage("menuitem_caption_unnuke"),
+        "contexts": ["all"]
+    });
+});
 
-/**
- * onClick listener to send message to the content script torestore the last removed.
- * @param info
- * @param tab
- */
-function unnukeOnClick(info, tab) {
-    chrome.tabs.sendMessage(tab.id, "unnukeObject", null);
-}
-
-// Create context menu items
-chrome.contextMenus.create({"title": chrome.i18n.getMessage("menuitem_caption_nuke"), "contexts": ["all"], "onclick": nukeOnClick});
-chrome.contextMenus.create({"title": chrome.i18n.getMessage("menuitem_caption_unnuke"), "contexts": ["all"], "onclick": unnukeOnClick});
+// Handle context menu clicks
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+    if (info.menuItemId === "nuke") {
+        chrome.tabs.sendMessage(tab.id, "nukeThisObject");
+    } else if (info.menuItemId === "unnuke") {
+        chrome.tabs.sendMessage(tab.id, "unnukeObject");
+    }
+});
