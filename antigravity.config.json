@@ -1,0 +1,14 @@
+{
+    "agent": {
+        "execution": {
+            "autoAccept": [
+                "read-only",
+                "openspec-status"
+            ],
+            "requiresApproval": [
+                "file-delete",
+                "git-push"
+            ]
+        }
+    }
+}

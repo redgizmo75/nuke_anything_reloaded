@@ -107,4 +107,47 @@ test.describe('Nuke Anything Reloaded', () => {
         // Verify it is visible again
         await expect(target).toBeVisible();
     });
+
+    test('should nuke an element via keyboard shortcut logic', async () => {
+        // Load a local test file
+        const testFile = 'file://' + path.join(__dirname, '../test.html');
+        await page.goto(testFile);
+
+        // Hover over the element
+        const elementToNuke = page.locator('#nuke-target');
+        await elementToNuke.hover();
+
+        // We cannot reliably trigger extension keyboard shortcuts (Alt+Shift+X) via Playwright's keyboard.press 
+        // in this headless/extension environment.
+        // Instead, we verify the chain:
+        // 1. Hover updates content script state (tested by the fact that nukeHovered will work)
+        // 2. Background sends 'nukeHovered' (simulated here)
+        // 3. Content script handles 'nukeHovered' (hides element)
+
+        let [backgroundWorker] = browserContext.serviceWorkers();
+        if (!backgroundWorker)
+            backgroundWorker = await browserContext.waitForEvent('serviceworker');
+
+        // Simulate "nuke" command: Send nukeHovered from background
+        await backgroundWorker.evaluate(async () => {
+            const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+            if (tab) {
+                chrome.tabs.sendMessage(tab.id, "nukeHovered");
+            }
+        });
+
+        // Verify the element is hidden
+        await expect(elementToNuke).toBeHidden();
+
+        // Simulate "unnuke" command: Send unnukeObject from background
+        await backgroundWorker.evaluate(async () => {
+            const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+            if (tab) {
+                chrome.tabs.sendMessage(tab.id, "unnukeObject");
+            }
+        });
+
+        // Verify the element is visible again
+        await expect(elementToNuke).toBeVisible();
+    });
 });

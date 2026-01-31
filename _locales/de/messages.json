@@ -4,12 +4,12 @@
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Erlaubt das Verstecken nahezu beliebiger Objekte.",
+    "message": "Erlaubt das Verstecken nahezu beliebiger Objekte über das Kontextmenü oder Tastenkürzel (Alt+Shift+X).",
     "description": "The description of the application, displayed in the web store."
   },
   "menuitem_caption_nuke": {
     "message": "Dieses Objekt entfernen"
-  } ,
+  },
   "menuitem_caption_unnuke": {
     "message": "Letztes Objekt wiederherstellen"
   }

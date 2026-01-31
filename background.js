@@ -20,3 +20,15 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         chrome.tabs.sendMessage(tab.id, "unnukeObject");
     }
 });
+
+// Handle keyboard commands
+chrome.commands.onCommand.addListener(async (command) => {
+    const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+    if (!tab) return;
+
+    if (command === "nuke") {
+        chrome.tabs.sendMessage(tab.id, "nukeHovered");
+    } else if (command === "unnuke") {
+        chrome.tabs.sendMessage(tab.id, "unnukeObject");
+    }
+});
