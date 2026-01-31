@@ -4,7 +4,7 @@
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Allows you to hide almost anything via context menu or keyboard shortcuts (Alt+Shift+X).",
+    "message": "Allows you to hide almost anything via context menu or keyboard shortcuts (Alt+Shift+X). Visual feedback included.",
     "description": "The description of the application, displayed in the web store."
   },
   "menuitem_caption_nuke": {

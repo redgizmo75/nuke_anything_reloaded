@@ -1,6 +1,16 @@
 const { test, expect, chromium } = require('@playwright/test');
 const path = require('path');
 
+// Helper to get modifier keys for current platform
+const getModifiers = () => {
+    const isMac = process.platform === 'darwin';
+    return {
+        cmd: isMac ? 'Meta' : 'Control',
+        alt: 'Alt',
+        shift: 'Shift'
+    };
+};
+
 test.describe('Nuke Anything Reloaded', () => {
     let browserContext;
     let page;
@@ -149,5 +159,34 @@ test.describe('Nuke Anything Reloaded', () => {
 
         // Verify the element is visible again
         await expect(elementToNuke).toBeVisible();
+    });
+
+    test('should show visual feedback in Nuke Mode', async () => {
+        await page.goto(`file://${path.join(__dirname, '../test.html')}`);
+        const elementToHover = page.locator('#nuke-target');
+        const body = page.locator('body');
+
+        // Hover element - should NOT have highlight initially
+        await elementToHover.hover();
+        await expect(elementToHover).not.toHaveClass(/nuke-highlight/);
+        await expect(body).not.toHaveClass(/nuke-mode-active/);
+
+        // Enter Nuke Mode (Press Alt+Shift)
+        await page.keyboard.down('Alt');
+        await page.keyboard.down('Shift');
+
+        // Verify visual feedback active
+        await expect(body).toHaveClass(/nuke-mode-active/);
+        // Move mouse slightly to trigger mouseover if needed, or re-hover
+        await elementToHover.hover();
+        await expect(elementToHover).toHaveClass(/nuke-highlight/);
+
+        // Exit Nuke Mode (Release keys)
+        await page.keyboard.up('Shift');
+        await page.keyboard.up('Alt');
+
+        // Verify visual feedback removed
+        await expect(body).not.toHaveClass(/nuke-mode-active/);
+        await expect(elementToHover).not.toHaveClass(/nuke-highlight/);
     });
 });

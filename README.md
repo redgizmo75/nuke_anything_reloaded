@@ -14,3 +14,5 @@ Maybe I can find a way to add the visual to see the object to be removed that th
 **Keyboard Shortcuts:**
 - **Alt+Shift+X**: Hide the element under the mouse cursor.
 - **Alt+Shift+Z**: Restore the last hidden element.
+
+*Tip: Hold `Alt+Shift` to see a red outline around the element you are about to remove.*
