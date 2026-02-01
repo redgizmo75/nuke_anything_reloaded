@@ -16,7 +16,33 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-const nukeStash = [];
+
+// Stash for hidden elements: Map<string, {element: HTMLElement, originalDisplay: string, timestamp: number, label: string}>
+// Using a Map to preserve insertion order for LIFO unnuke, while allowing random access by ID.
+const nukeStash = new Map();
+
+/**
+ * Generate a unique ID for hidden elements
+ */
+function generateId() {
+    return 'nuke-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+}
+
+/**
+ * Generate a label for the hidden element
+ */
+function generateLabel(element) {
+    if (element.id) return '#' + element.id;
+    if (element.innerText && element.innerText.trim().length > 0) {
+        return element.innerText.trim().substring(0, 30) + (element.innerText.trim().length > 30 ? '...' : '');
+    }
+    let label = element.tagName.toLowerCase();
+    if (element.className) {
+        label += '.' + element.className.split(' ').join('.');
+    }
+    return label;
+}
+
 
 /**
  * Mousedown listener, save the DOM object under the mouse click to be able to use it later.
@@ -69,6 +95,7 @@ function updateNukeMode(event) {
 document.addEventListener("keydown", updateNukeMode, true);
 document.addEventListener("keyup", updateNukeMode, true);
 
+
 /**
  * Message listener. Takes messages from background.js and removes the object clicked or restores the top object from
  * the nuke stash.
@@ -76,25 +103,67 @@ document.addEventListener("keyup", updateNukeMode, true);
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request === "nukeThisObject") {
         if (clickedElementNAR) {
-            nukeStash.push({
+            const id = generateId();
+            nukeStash.set(id, {
                 "element": clickedElementNAR,
-                "displayStyle": clickedElementNAR.style.display
+                "displayStyle": clickedElementNAR.style.display,
+                "timestamp": Date.now(),
+                "label": generateLabel(clickedElementNAR)
             });
             clickedElementNAR.style.display = "none";
         }
     } else if (request === "nukeHovered") {
         if (hoveredElementNAR) {
             hoveredElementNAR.classList.remove("nuke-highlight"); // Remove highlight before hiding
-            nukeStash.push({
+            const id = generateId();
+            nukeStash.set(id, {
                 "element": hoveredElementNAR,
-                "displayStyle": hoveredElementNAR.style.display
+                "displayStyle": hoveredElementNAR.style.display,
+                "timestamp": Date.now(),
+                "label": generateLabel(hoveredElementNAR)
             });
             hoveredElementNAR.style.display = "none";
         }
     } else if (request === "unnukeObject") {
-        const unnukeElement = nukeStash.pop();
-        if (typeof unnukeElement !== 'undefined') {
-            unnukeElement.element.style.display = unnukeElement.displayStyle;
+        // LIFO behavior: get the last inserted element
+        if (nukeStash.size > 0) {
+            const lastEntry = Array.from(nukeStash.entries()).pop();
+            const [id, data] = lastEntry;
+            data.element.style.display = data.displayStyle;
+            nukeStash.delete(id);
         }
+
+    } else if (request.action === "getHiddenElements") {
+        // Return list of hidden elements summaries
+        const list = [];
+        // Map iterates in insertion order, so we reverse it to show newest first in UI if desired
+        // Or keep insertion order. Let's send them in order; UI can decide.
+        // Actually, nukeStash is a Map.
+        for (const [id, data] of nukeStash.entries()) {
+            list.push({
+                id: id,
+                label: data.label,
+                timestamp: data.timestamp
+            });
+        }
+        sendResponse(list.reverse()); // Reverse to show LIFO nature (newest hidden on top)
+    } else if (request.action === "unhideElement") {
+        const id = request.id;
+        if (nukeStash.has(id)) {
+            const data = nukeStash.get(id);
+            data.element.style.display = data.displayStyle;
+            nukeStash.delete(id);
+            sendResponse({ success: true });
+        } else {
+            sendResponse({ success: false, error: 'Element not found' });
+        }
+    } else if (request.action === "unhideAll") {
+        for (const [id, data] of nukeStash.entries()) {
+            data.element.style.display = data.displayStyle;
+        }
+        nukeStash.clear();
+        sendResponse({ success: true });
     }
 });
+
+

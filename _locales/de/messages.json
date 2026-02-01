@@ -1,16 +1,29 @@
 {
   "appName": {
-    "message": "Nuke anything reloaded",
-    "description": "The title of the application, displayed in the web store."
+    "message": "Nuke anything reloaded"
   },
   "appDesc": {
-    "message": "Erlaubt das Verstecken nahezu beliebiger Objekte über das Kontextmenü oder Tastenkürzel (Alt+Shift+X). Mit visuellem Feedback.",
-    "description": "The description of the application, displayed in the web store."
+    "message": "Erlaubt das Ausblenden fast aller Objekte via Kontextmenü oder Tastaturkürzel (Alt+Shift+X). Inklusive visuellem Feedback."
   },
   "menuitem_caption_nuke": {
     "message": "Dieses Objekt entfernen"
   },
   "menuitem_caption_unnuke": {
-    "message": "Letztes Objekt wiederherstellen"
+    "message": "Letztes Entfernen rückgängig machen"
+  },
+  "popup_title": {
+    "message": "Versteckte Elemente"
+  },
+  "popup_unhide_all": {
+    "message": "Alle anzeigen"
+  },
+  "popup_unhide": {
+    "message": "Anzeigen"
+  },
+  "popup_empty_state": {
+    "message": "Keine versteckten Elemente."
+  },
+  "popup_unknown_element": {
+    "message": "Unbekanntes Element"
   }
 }

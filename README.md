@@ -16,3 +16,8 @@ Maybe I can find a way to add the visual to see the object to be removed that th
 - **Alt+Shift+Z**: Restore the last hidden element.
 
 *Tip: Hold `Alt+Shift` to see a red outline around the element you are about to remove.*
+
+**Manage Hidden Elements:**
+- Click the extension icon in the toolbar to open the list of hidden elements on the current page.
+- Click "Unhide" next to an item to restore it.
+- Click "Unhide All" to restore everything on the page.

@@ -1,35 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Nuke test</title>
+    <title>Nuke Anything Reloaded - Verification Page</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .box {
+            padding: 20px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .highlight {
+            background-color: #f0f9ff;
+            border-color: #007bff;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        #hero-section {
+            background-color: #eee;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card {
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .nav-link {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        footer {
+            margin-top: 50px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            color: #777;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Heading 1</h1>
-    <div id="nuke-target" style="padding: 20px; background-color: lightblue; border: 1px solid black;">
-        TARGET: Nuke me!
+    <header id="main-header" class="box">
+        <h1>Nuke Anything Verification</h1>
+        <nav>
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Products</a>
+            <a href="#" class="nav-link">About</a>
+        </nav>
+    </header>
+
+    <div id="hero-section">
+        <h2>Hero Section (ID: #hero-section)</h2>
+        <p>Try hiding this entire block. It should appear as <strong>#hero-section</strong> in the popup.</p>
+        <button id="cta-button" class="box highlight">Call to Action Button</button>
     </div>
-    <div>
-        <a href="#">Link 1</a>
-    </div>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-    <img src="icon_nuke_16.png"/>
-    <img src="icon_nuke_128.png"/>
-    <ul>
-        <li><img src="icon_nuke_16.png"/></li>
-        <li><img src="icon_nuke_128.png"/></li>
-    </ul>
-    <h2>Display styles</h2>
-    <h3>List</h3>
-    <img src="icon_nuke_16.png" style="display: list-item"/>
-    <img src="icon_nuke_128.png" style="display: list-item"/>
-    <h3>Table</h3>
-    <ul style="display:table">
-        <li style="display: table-caption">images</li>
-        <li style="display: table-cell; border: thin solid black"><img src="icon_nuke_16.png"/></li>
-        <li style="display: table-cell; border: thin solid black"><img src="icon_nuke_128.png"/></li>
-    </ul>
+
+    <main>
+        <h3>Card Container (Class: .card-container)</h3>
+        <div class="card-container">
+            <div class="card">
+                <h4>Card 1</h4>
+                <p>Simple text content.</p>
+            </div>
+            <div class="card warning">
+                <h4>Card 2 (Warning)</h4>
+                <p>Has specific class.</p>
+            </div>
+            <div class="card" id="special-card">
+                <h4>Card 3 (ID: #special-card)</h4>
+                <p>Has ID.</p>
+            </div>
+        </div>
+
+        <h3>Miscellaneous Elements</h3>
+
+        <div class="box">
+            <p>A paragraph with <strong>nested bold text</strong> inside a div.</p>
+        </div>
+
+        <div class="box highlight">
+            No ID, but has classes <code>.box.highlight</code>.
+            Should appear as <strong>div.box.highlight</strong> if text is too long or generic?
+            Actually logic prefers text content first.
+        </div>
+
+        <div>
+            <!-- Empty div with no text -->
+            <img src="icon_nuke_48.png" alt="Nuke Icon" class="logo-img">
+            <span>(Image above has class .logo-img)</span>
+        </div>
+
+        <ul id="feature-list">
+            <li>Feature Item 1</li>
+            <li class="active">Feature Item 2 (Active)</li>
+            <li>Feature Item 3</li>
+        </ul>
+    </main>
+
+    <footer id="page-footer">
+        <p>made with ❤️ by Nuke Anything Reloaded</p>
+        <div class="social-links">
+            <a href="#">Twitter</a> | <a href="#">GitHub</a>
+        </div>
+    </footer>
 </body>
+
 </html>

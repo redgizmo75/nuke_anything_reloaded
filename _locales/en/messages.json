@@ -12,5 +12,20 @@
   },
   "menuitem_caption_unnuke": {
     "message": "Undo last remove"
+  },
+  "popup_title": {
+    "message": "Hidden Elements"
+  },
+  "popup_unhide_all": {
+    "message": "Unhide All"
+  },
+  "popup_unhide": {
+    "message": "Unhide"
+  },
+  "popup_empty_state": {
+    "message": "No hidden elements on this page."
+  },
+  "popup_unknown_element": {
+    "message": "Unknown Element"
   }
 }
