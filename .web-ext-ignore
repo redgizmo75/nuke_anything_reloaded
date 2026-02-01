@@ -1,0 +1,15 @@
+# Spezial-Ordner und Configs
+.agent/
+openspec/
+antigravity.config.json
+
+# Development & Build Files
+.git/
+node_modules/
+package-lock.json
+package.json
+web-ext-artifacts/
+
+# Sonstiges
+*.md
+.gitignore
