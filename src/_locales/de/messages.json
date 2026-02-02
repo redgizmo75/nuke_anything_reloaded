@@ -1,15 +1,15 @@
 {
   "appName": {
-    "message": "Nuke anything reloaded"
+    "message": "ZapIt"
   },
   "appDesc": {
-    "message": "Erlaubt das Ausblenden fast aller Objekte via Kontextmenü oder Tastaturkürzel (Alt+Shift+X). Inklusive visuellem Feedback."
+    "message": "Erlaubt das Zappen fast aller Objekte via Kontextmenü oder Tastaturkürzel (Alt+Shift+X). Inklusive visuellem Feedback."
   },
-  "menuitem_caption_nuke": {
-    "message": "Dieses Objekt entfernen"
+  "menuitem_caption_zap": {
+    "message": "Dieses Objekt zappen"
   },
-  "menuitem_caption_unnuke": {
-    "message": "Letztes Entfernen rückgängig machen"
+  "menuitem_caption_unzap": {
+    "message": "Zappen rückgängig machen"
   },
   "popup_title": {
     "message": "Versteckte Elemente"

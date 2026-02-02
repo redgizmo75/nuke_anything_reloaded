@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_appName__",
   "description": "__MSG_appDesc__",
-  "version": "2.0",
+  "version": "2.1",
   "default_locale": "en",
   "permissions": [
     "contextMenus"
@@ -30,17 +30,17 @@
     "default_popup": "popup.html"
   },
   "commands": {
-    "nuke": {
+    "zap": {
       "suggested_key": {
         "default": "Alt+Shift+X"
       },
-      "description": "Nuke the element under the cursor"
+      "description": "Zap the element under the cursor"
     },
-    "unnuke": {
+    "unzap": {
       "suggested_key": {
         "default": "Alt+Shift+Z"
       },
-      "description": "Unnuke the last hidden element"
+      "description": "Unzap the last hidden element"
     }
   }
 }

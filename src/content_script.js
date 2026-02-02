@@ -1,16 +1,16 @@
-let clickedElementNAR = null;
-let hoveredElementNAR = null;
-let isNukeMode = false;
+let clickedElementZap = null;
+let hoveredElementZap = null;
+let isZapMode = false;
 
 // Inject Styles for Visual Feedback
 const style = document.createElement('style');
 style.textContent = `
-    .nuke-highlight {
+    .zap-highlight {
         outline: 2px dashed red !important;
         outline-offset: -2px;
         cursor: crosshair !important;
     }
-    .nuke-mode-active {
+    .zap-mode-active {
         cursor: crosshair !important;
     }
 `;
@@ -18,14 +18,14 @@ document.head.appendChild(style);
 
 
 // Stash for hidden elements: Map<string, {element: HTMLElement, originalDisplay: string, timestamp: number, label: string}>
-// Using a Map to preserve insertion order for LIFO unnuke, while allowing random access by ID.
-const nukeStash = new Map();
+// Using a Map to preserve insertion order for LIFO unzap, while allowing random access by ID.
+const zapStash = new Map();
 
 /**
  * Generate a unique ID for hidden elements
  */
 function generateId() {
-    return 'nuke-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+    return 'zap-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
 }
 
 /**
@@ -50,7 +50,7 @@ function generateLabel(element) {
 document.addEventListener("mousedown", function (event) {
     // only right click
     if (event.button === 2) {
-        clickedElementNAR = event.target;
+        clickedElementZap = event.target;
     }
 }, true);
 
@@ -58,42 +58,42 @@ document.addEventListener("mousedown", function (event) {
  * Mouseover listener, track the element under the cursor for keyboard shortcuts.
  */
 document.addEventListener("mouseover", function (event) {
-    if (hoveredElementNAR && isNukeMode) {
-        hoveredElementNAR.classList.remove("nuke-highlight");
+    if (hoveredElementZap && isZapMode) {
+        hoveredElementZap.classList.remove("zap-highlight");
     }
-    hoveredElementNAR = event.target;
-    if (isNukeMode && hoveredElementNAR) {
-        hoveredElementNAR.classList.add("nuke-highlight");
+    hoveredElementZap = event.target;
+    if (isZapMode && hoveredElementZap) {
+        hoveredElementZap.classList.add("zap-highlight");
     }
 }, true);
 
 /**
- * Handle Alt+Shift State for Nuke Mode
+ * Handle Alt+Shift State for Zap Mode
  */
-function updateNukeMode(event) {
+function updateZapMode(event) {
     if (event.altKey && event.shiftKey) {
-        if (!isNukeMode) {
-            isNukeMode = true;
-            document.body.classList.add("nuke-mode-active");
-            if (hoveredElementNAR) {
-                hoveredElementNAR.classList.add("nuke-highlight");
+        if (!isZapMode) {
+            isZapMode = true;
+            document.body.classList.add("zap-mode-active");
+            if (hoveredElementZap) {
+                hoveredElementZap.classList.add("zap-highlight");
             }
         }
     } else {
-        if (isNukeMode) {
-            isNukeMode = false;
-            document.body.classList.remove("nuke-mode-active");
-            if (hoveredElementNAR) {
-                hoveredElementNAR.classList.remove("nuke-highlight");
+        if (isZapMode) {
+            isZapMode = false;
+            document.body.classList.remove("zap-mode-active");
+            if (hoveredElementZap) {
+                hoveredElementZap.classList.remove("zap-highlight");
             }
             // Cleanup any other potential artifacts
-            document.querySelectorAll(".nuke-highlight").forEach(el => el.classList.remove("nuke-highlight"));
+            document.querySelectorAll(".zap-highlight").forEach(el => el.classList.remove("zap-highlight"));
         }
     }
 }
 
-document.addEventListener("keydown", updateNukeMode, true);
-document.addEventListener("keyup", updateNukeMode, true);
+document.addEventListener("keydown", updateZapMode, true);
+document.addEventListener("keyup", updateZapMode, true);
 
 
 /**
@@ -101,36 +101,36 @@ document.addEventListener("keyup", updateNukeMode, true);
  * the nuke stash.
  */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request === "nukeThisObject") {
-        if (clickedElementNAR) {
+    if (request === "zapObject") {
+        if (clickedElementZap) {
             const id = generateId();
-            nukeStash.set(id, {
-                "element": clickedElementNAR,
-                "displayStyle": clickedElementNAR.style.display,
+            zapStash.set(id, {
+                "element": clickedElementZap,
+                "displayStyle": clickedElementZap.style.display,
                 "timestamp": Date.now(),
-                "label": generateLabel(clickedElementNAR)
+                "label": generateLabel(clickedElementZap)
             });
-            clickedElementNAR.style.display = "none";
+            clickedElementZap.style.display = "none";
         }
-    } else if (request === "nukeHovered") {
-        if (hoveredElementNAR) {
-            hoveredElementNAR.classList.remove("nuke-highlight"); // Remove highlight before hiding
+    } else if (request === "zapHovered") {
+        if (hoveredElementZap) {
+            hoveredElementZap.classList.remove("zap-highlight"); // Remove highlight before hiding
             const id = generateId();
-            nukeStash.set(id, {
-                "element": hoveredElementNAR,
-                "displayStyle": hoveredElementNAR.style.display,
+            zapStash.set(id, {
+                "element": hoveredElementZap,
+                "displayStyle": hoveredElementZap.style.display,
                 "timestamp": Date.now(),
-                "label": generateLabel(hoveredElementNAR)
+                "label": generateLabel(hoveredElementZap)
             });
-            hoveredElementNAR.style.display = "none";
+            hoveredElementZap.style.display = "none";
         }
-    } else if (request === "unnukeObject") {
+    } else if (request === "unzapObject") {
         // LIFO behavior: get the last inserted element
-        if (nukeStash.size > 0) {
-            const lastEntry = Array.from(nukeStash.entries()).pop();
+        if (zapStash.size > 0) {
+            const lastEntry = Array.from(zapStash.entries()).pop();
             const [id, data] = lastEntry;
             data.element.style.display = data.displayStyle;
-            nukeStash.delete(id);
+            zapStash.delete(id);
         }
 
     } else if (request.action === "getHiddenElements") {
@@ -138,8 +138,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         const list = [];
         // Map iterates in insertion order, so we reverse it to show newest first in UI if desired
         // Or keep insertion order. Let's send them in order; UI can decide.
-        // Actually, nukeStash is a Map.
-        for (const [id, data] of nukeStash.entries()) {
+        // Actually, zapStash is a Map.
+        for (const [id, data] of zapStash.entries()) {
             list.push({
                 id: id,
                 label: data.label,
@@ -149,19 +149,19 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         sendResponse(list.reverse()); // Reverse to show LIFO nature (newest hidden on top)
     } else if (request.action === "unhideElement") {
         const id = request.id;
-        if (nukeStash.has(id)) {
-            const data = nukeStash.get(id);
+        if (zapStash.has(id)) {
+            const data = zapStash.get(id);
             data.element.style.display = data.displayStyle;
-            nukeStash.delete(id);
+            zapStash.delete(id);
             sendResponse({ success: true });
         } else {
             sendResponse({ success: false, error: 'Element not found' });
         }
     } else if (request.action === "unhideAll") {
-        for (const [id, data] of nukeStash.entries()) {
+        for (const [id, data] of zapStash.entries()) {
             data.element.style.display = data.displayStyle;
         }
-        nukeStash.clear();
+        zapStash.clear();
         sendResponse({ success: true });
     }
 });

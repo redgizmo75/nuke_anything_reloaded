@@ -1,15 +1,23 @@
 # Spezial-Ordner und Configs
-.agent/
-openspec/
+**/.agent/**
+**/openspec/**
 antigravity.config.json
 
 # Development & Build Files
-.git/
-node_modules/
+**/.git/**
+**/node_modules/**
 package-lock.json
 package.json
 web-ext-artifacts/
 
+# Playwright & Tests
+**/playwright-report/**
+**/test-results/**
+**/tests/**
+playwright.config.js
+test.html
+
 # Sonstiges
 *.md
 .gitignore
+LICENSE

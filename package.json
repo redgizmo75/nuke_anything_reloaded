@@ -1,14 +1,14 @@
 {
-  "name": "nuke_anything_reloaded",
-  "version": "1.0.0",
-  "description": "Chrome extension that allows you to hide almost anything via context menu.",
-  "main": "background.js",
+  "name": "zapit",
+  "version": "2.0.0",
+  "description": "Chrome extension that allows you to zap almost anything via context menu.",
+  "main": "src/background.js",
   "scripts": {
     "test": "playwright test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/redgizmo75/nuke_anything_reloaded.git"
+    "url": "git@github.com:redgizmo75/ZapIt.git"
   },
   "keywords": [],
   "author": "",

@@ -1,17 +1,17 @@
 {
   "appName": {
-    "message": "Nuke anything reloaded",
+    "message": "ZapIt",
     "description": "The title of the application, displayed in the web store."
   },
   "appDesc": {
-    "message": "Allows you to hide almost anything via context menu or keyboard shortcuts (Alt+Shift+X). Visual feedback included.",
+    "message": "Allows you to zap almost anything via context menu or keyboard shortcuts (Alt+Shift+X). Visual feedback included.",
     "description": "The description of the application, displayed in the web store."
   },
-  "menuitem_caption_nuke": {
-    "message": "Remove this object"
+  "menuitem_caption_zap": {
+    "message": "Zap this object"
   },
-  "menuitem_caption_unnuke": {
-    "message": "Undo last remove"
+  "menuitem_caption_unzap": {
+    "message": "Undo last zap"
   },
   "popup_title": {
     "message": "Hidden Elements"

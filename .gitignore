@@ -22,3 +22,6 @@ Thumbs.db
 
 # OpenSpec - Keep .agent/ but ignore simple local configs if any
 # (Typically .agent should be committed to share workflows)
+
+web-ext-artifacts/
+
